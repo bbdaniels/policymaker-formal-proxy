@@ -1,10 +1,10 @@
 export default {
   async fetch(request, env) {
-    const ALLOWED = (env.ALLOWED_ORIGINS || "https://www.benjaminbdaniels.com,http://localhost,file://").split(",");
-    const origin = request.headers.get("Origin") || "";
-    const allowed = ALLOWED.some(o => origin.startsWith(o));
+    const ALLOWED = (env.ALLOWED_ORIGINS || "https://www.benjaminbdaniels.com,http://localhost,null").split(",");
+    const origin = request.headers.get("Origin") || "null";
+    const allowed = ALLOWED.some(o => origin === o || origin.startsWith(o));
     const cors = {
-      "Access-Control-Allow-Origin": allowed ? origin : ALLOWED[0],
+      "Access-Control-Allow-Origin": allowed ? origin : "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Max-Age": "86400"
